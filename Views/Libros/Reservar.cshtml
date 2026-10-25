@@ -1,0 +1,36 @@
+@model FeriaDelLibro.Models.Reserva
+@{
+    ViewData["Title"] = "Reservar libro";
+    var libro = (FeriaDelLibro.Models.Libro)ViewBag.Libro;
+    var precioInv = libro.Precio.ToString(System.Globalization.CultureInfo.InvariantCulture);
+}
+
+<h1>Reservar: @libro.Titulo</h1>
+<p class="text-muted">@libro.Autor · Precio: @libro.Precio.ToString("C0") · Disponibles: @libro.Stock</p>
+<div class="alert alert-info">🎉 Llevando 3 o más ejemplares tienes <strong>10% de descuento</strong>.</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Reservar" method="post" id="formReserva">
+            <input type="hidden" asp-for="LibroId" />
+            <div class="mb-3">
+                <label asp-for="NombreVisitante" class="form-label"></label>
+                <input asp-for="NombreVisitante" class="form-control" />
+                <span asp-validation-for="NombreVisitante" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Cantidad" class="form-label"></label>
+                <input asp-for="Cantidad" class="form-control" data-precio="@precioInv" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+            <p class="fs-5">Total estimado: <strong id="totalEstimado"></strong></p>
+            <button type="submit" class="btn btn-success">Confirmar reserva</button>
+            <a asp-action="Index" class="btn btn-secondary">Volver</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/feria.js"></script>
+}

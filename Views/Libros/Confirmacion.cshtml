@@ -1,0 +1,19 @@
+@model FeriaDelLibro.Models.Reserva
+@{
+    ViewData["Title"] = "Reserva confirmada";
+}
+
+<div class="card border-success">
+    <div class="card-header bg-success text-white">✅ ¡Reserva confirmada!</div>
+    <div class="card-body">
+        <p><strong>Reserva #@Model.Id</strong> a nombre de <strong>@Model.NombreVisitante</strong></p>
+        <ul>
+            <li>Libro: @Model.TituloLibro</li>
+            <li>Cantidad: @Model.Cantidad</li>
+            <li>Descuento: @Model.Descuento.ToString("C0")</li>
+            <li>Total a pagar: <strong>@Model.Total.ToString("C0")</strong></li>
+            <li>Fecha: @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</li>
+        </ul>
+        <a asp-action="Index" class="btn btn-primary">Volver al catálogo</a>
+    </div>
+</div>

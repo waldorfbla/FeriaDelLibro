@@ -1,0 +1,60 @@
+@model FeriaDelLibro.Models.Libro
+@{
+    ViewData["Title"] = "Registrar libro";
+}
+
+<h1>Registrar libro</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Crear" method="post" id="formLibro">
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label"></label>
+                <input asp-for="Titulo" class="form-control" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Autor" class="form-label"></label>
+                <input asp-for="Autor" class="form-control" />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Genero" class="form-label"></label>
+                <select asp-for="Genero" class="form-select">
+                    <option value="">-- Selecciona --</option>
+                    <option>Novela</option>
+                    <option>Clásico</option>
+                    <option>Poesía</option>
+                    <option>Ciencia</option>
+                    <option>Infantil</option>
+                    <option>Historia</option>
+                </select>
+                <span asp-validation-for="Genero" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Precio" class="form-label"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Stock" class="form-label"></label>
+                    <input asp-for="Stock" class="form-control" />
+                    <span asp-validation-for="Stock" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="FechaPublicacion" class="form-label"></label>
+                <input asp-for="FechaPublicacion" class="form-control" />
+                <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/feria.js"></script>
+}
