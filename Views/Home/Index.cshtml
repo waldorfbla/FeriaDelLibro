@@ -1,8 +1,159 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="hero-feria">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="etiqueta-feria">
+                    UN ESPACIO PARA LOS AMANTES DE LA LECTURA
+                </span>
+
+```
+            <h1 class="titulo-hero mt-4">
+                Un mundo de historias
+                <span>te espera</span>
+            </h1>
+
+            <p class="descripcion-hero mt-3">
+                Descubre nuevas aventuras, conoce grandes autores
+                y encuentra ese libro especial que te acompañará
+                para siempre.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 mt-4">
+                <a asp-controller="Libros"
+                   asp-action="Index"
+                   class="btn btn-feria">
+                    Explorar libros
+                </a>
+
+                <a asp-controller="Participantes"
+                   asp-action="Registro"
+                   class="btn btn-feria-secundario">
+                    Inscribirme
+                </a>
+            </div>
+
+            <p class="detalle-hero mt-4">
+                Leer es viajar sin salir de casa.
+            </p>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="ilustracion-libros">
+                <div class="decoracion decoracion-uno">✿</div>
+                <div class="decoracion decoracion-dos">♡</div>
+
+                <div class="libros-apilados">
+                    <div class="libro libro-uno">
+                        <span>Historias</span>
+                        <small>que inspiran</small>
+                    </div>
+
+                    <div class="libro libro-dos">
+                        <span>Un mundo</span>
+                        <small>por descubrir</small>
+                    </div>
+
+                    <div class="libro libro-tres">
+                        <span>Imagina</span>
+                        <small>y sueña</small>
+                    </div>
+                </div>
+
+                <p class="frase-ilustracion">
+                    Cada libro abre una puerta.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
+```
+
+</section>
+
+<section class="container seccion-bienvenida">
+    <div class="text-center mx-auto bienvenida-contenido">
+        <span class="subtitulo-seccion">BIENVENIDOS</span>
+
+```
+    <h2 class="mt-2">
+        Tu próxima historia favorita comienza aquí
+    </h2>
+
+    <p class="mt-3">
+        La Feria del Libro es un espacio para descubrir autores,
+        explorar diferentes géneros literarios y compartir
+        la pasión por la lectura.
+    </p>
+</div>
+```
+
+</section>
+
+<section class="container seccion-categorias">
+    <div class="text-center mb-5">
+        <span class="subtitulo-seccion">EXPLORA</span>
+        <h2 class="mt-2">Encuentra tu próxima lectura</h2>
+        <p class="texto-descripcion">
+            Hay una historia para cada persona.
+        </p>
+    </div>
+
+```
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="tarjeta-categoria">
+            <div class="icono-categoria">♡</div>
+            <h3>Romance</h3>
+            <p>
+                Historias de amor, emociones y encuentros inolvidables.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="tarjeta-categoria">
+            <div class="icono-categoria">✧</div>
+            <h3>Fantasía</h3>
+            <p>
+                Mundos mágicos, aventuras extraordinarias
+                y personajes fascinantes.
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="tarjeta-categoria">
+            <div class="icono-categoria">❀</div>
+            <h3>Desarrollo personal</h3>
+            <p>
+                Lecturas para aprender, reflexionar y crecer cada día.
+            </p>
+        </div>
+    </div>
+</div>
+```
+
+</section>
+
+<section class="container">
+    <div class="invitacion-feria text-center">
+        <h2>¡Forma parte de esta aventura!</h2>
+
+```
+    <p>
+        Regístrate y prepárate para descubrir nuevas historias.
+    </p>
+
+    <a asp-controller="Participantes"
+       asp-action="Registro"
+       class="btn btn-feria">
+        Quiero participar
+    </a>
+</div>
+```
+
+</section>

@@ -21,6 +21,7 @@
         <tr>
             <th>Título</th>
             <th>Autor</th>
+            <th>País</th>
             <th>Género</th>
             <th>Precio</th>
             <th>Stock</th>
@@ -32,7 +33,8 @@
         {
             <tr>
                 <td>@libro.Titulo</td>
-                <td>@libro.Autor</td>
+                <td>@libro.Autor?.Nombre</td>
+                <td>@libro.Autor?.Pais</td>
                 <td><span class="badge bg-secondary">@libro.Genero</span></td>
                 <td>@libro.Precio.ToString("C0")</td>
                 <td>
@@ -50,6 +52,8 @@
                     {
                         <a asp-action="Reservar" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-primary">Reservar</a>
                     }
+                    <a asp-action="Editar" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-secondary">Editar</a>
+                    <a asp-action="Eliminar" asp-route-id="@libro.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
                 </td>
             </tr>
         }

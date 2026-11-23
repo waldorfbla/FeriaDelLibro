@@ -1,0 +1,21 @@
+@model FeriaDelLibro.Models.Autor
+@{
+    ViewData["Title"] = "Eliminar autor";
+}
+
+<h1>Eliminar autor</h1>
+
+<div class="alert alert-danger">
+    ¿Seguro que deseas eliminar a <strong>@Model.Nombre</strong> (@Model.Pais)?
+    @if (Model.Libros.Count > 0)
+    {
+        <br />
+        <strong>Se eliminarán también sus @Model.Libros.Count libro(s).</strong>
+    }
+</div>
+
+<form asp-action="Eliminar" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

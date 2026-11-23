@@ -8,7 +8,7 @@
     <div class="card-body">
         <p><strong>Reserva #@Model.Id</strong> a nombre de <strong>@Model.NombreVisitante</strong></p>
         <ul>
-            <li>Libro: @Model.TituloLibro</li>
+            <li>Libro: @Model.Libro?.Titulo</li>
             <li>Cantidad: @Model.Cantidad</li>
             <li>Descuento: @Model.Descuento.ToString("C0")</li>
             <li>Total a pagar: <strong>@Model.Total.ToString("C0")</strong></li>

@@ -1,64 +1,133 @@
+using FeriaDelLibro.Data;
 using FeriaDelLibro.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FeriaDelLibro.Controllers;
 
 public class LibrosController : Controller
 {
-    // "Base de datos" en memoria
-    private static readonly List<Libro> _libros = new()
-    {
-        new Libro { Id = 1, Titulo = "Cien años de soledad", Autor = "Gabriel García Márquez", Genero = "Novela", Precio = 45000, Stock = 10, FechaPublicacion = new DateTime(1967, 5, 30) },
-        new Libro { Id = 2, Titulo = "El amor en los tiempos del cólera", Autor = "Gabriel García Márquez", Genero = "Novela", Precio = 42000, Stock = 8, FechaPublicacion = new DateTime(1985, 12, 5) },
-        new Libro { Id = 3, Titulo = "La vorágine", Autor = "José Eustasio Rivera", Genero = "Clásico", Precio = 30000, Stock = 5, FechaPublicacion = new DateTime(1924, 1, 1) }
-    };
-    private static readonly List<Reserva> _reservas = new();
-    private static int _siguienteLibroId = 4;
-    private static int _siguienteReservaId = 1;
+    private readonly FeriaContext _context;
 
-    // GET: /Libros
-    public IActionResult Index()
+    public LibrosController(FeriaContext context)
     {
-        return View(_libros);
+        _context = context;
     }
 
-    // GET: /Libros/Crear
-    [HttpGet]
-    public IActionResult Crear()
+    // Llena la lista desplegable de autores
+    private async Task CargarAutores(int? seleccionado = null)
     {
+        var autores = await _context.Autores.OrderBy(a => a.Nombre).ToListAsync();
+        ViewBag.Autores = new SelectList(autores, "Id", "Nombre", seleccionado);
+    }
+
+    // READ: catálogo con el autor de cada libro (consulta con Include)
+    public async Task<IActionResult> Index()
+    {
+        var libros = await _context.Libros
+            .Include(l => l.Autor)
+            .OrderBy(l => l.Titulo)
+            .ToListAsync();
+        return View(libros);
+    }
+
+    // CREATE
+    [HttpGet]
+    public async Task<IActionResult> Crear()
+    {
+        await CargarAutores();
         return View(new Libro());
     }
 
-    // POST: /Libros/Crear
     [HttpPost]
-    public IActionResult Crear(Libro libro)
+    public async Task<IActionResult> Crear(Libro libro)
     {
         if (!ModelState.IsValid)
+        {
+            await CargarAutores(libro.AutorId);
             return View(libro);
+        }
 
-        libro.Id = _siguienteLibroId++;
-        _libros.Add(libro);
+        libro.Id = 0; // CAMBIO: la base de datos genera el Id
+        _context.Libros.Add(libro);
+        await _context.SaveChangesAsync();
 
         TempData["Mensaje"] = $"El libro \"{libro.Titulo}\" fue registrado correctamente.";
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: /Libros/Reservar/1
+    // UPDATE
     [HttpGet]
-    public IActionResult Reservar(int id)
+    public async Task<IActionResult> Editar(int id)
     {
-        var libro = _libros.FirstOrDefault(l => l.Id == id);
+        var libro = await _context.Libros.FindAsync(id);
+        if (libro == null) return NotFound();
+
+        await CargarAutores(libro.AutorId);
+        return View(libro);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Editar(Libro libro)
+    {
+        if (!ModelState.IsValid)
+        {
+            await CargarAutores(libro.AutorId);
+            return View(libro);
+        }
+
+        _context.Libros.Update(libro);
+        await _context.SaveChangesAsync();
+
+        TempData["Mensaje"] = $"El libro \"{libro.Titulo}\" fue actualizado.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    // DELETE
+    [HttpGet]
+    public async Task<IActionResult> Eliminar(int id)
+    {
+        var libro = await _context.Libros
+            .Include(l => l.Autor)
+            .Include(l => l.Reservas)
+            .FirstOrDefaultAsync(l => l.Id == id);
+        if (libro == null) return NotFound();
+
+        return View(libro);
+    }
+
+    [HttpPost, ActionName("Eliminar")]
+    public async Task<IActionResult> EliminarConfirmado(int id)
+    {
+        var libro = await _context.Libros.FindAsync(id);
+        if (libro != null)
+        {
+            _context.Libros.Remove(libro);
+            await _context.SaveChangesAsync();
+            TempData["Mensaje"] = $"El libro \"{libro.Titulo}\" fue eliminado.";
+        }
+        return RedirectToAction(nameof(Index));
+    }
+
+    // RESERVAR (GET)
+    [HttpGet]
+    public async Task<IActionResult> Reservar(int id)
+    {
+        var libro = await _context.Libros.Include(l => l.Autor).FirstOrDefaultAsync(l => l.Id == id);
         if (libro == null) return NotFound();
 
         ViewBag.Libro = libro;
-        return View(new Reserva { LibroId = libro.Id, TituloLibro = libro.Titulo });
+        return View(new Reserva { LibroId = libro.Id });
     }
 
-    // POST: /Libros/Reservar
+    // RESERVAR (POST): procesa en C# y guarda en la base de datos
     [HttpPost]
-    public IActionResult Reservar(Reserva reserva)
+    public async Task<IActionResult> Reservar(Reserva reserva)
     {
-        var libro = _libros.FirstOrDefault(l => l.Id == reserva.LibroId);
+        reserva.Id = 0; // CAMBIO: evita que el id del libro en la URL se use como Id de la reserva
+
+        var libro = await _context.Libros.Include(l => l.Autor).FirstOrDefaultAsync(l => l.Id == reserva.LibroId);
         if (libro == null) return NotFound();
 
         if (reserva.Cantidad > libro.Stock)
@@ -70,24 +139,23 @@ public class LibrosController : Controller
             return View(reserva);
         }
 
-        // Procesamiento en C#: descuento del 10% desde 3 ejemplares
+        // Descuento del 10% desde 3 ejemplares
         decimal subtotal = libro.Precio * reserva.Cantidad;
         reserva.Descuento = reserva.Cantidad >= 3 ? subtotal * 0.10m : 0;
         reserva.Total = subtotal - reserva.Descuento;
-        reserva.TituloLibro = libro.Titulo;
-        reserva.Id = _siguienteReservaId++;
         reserva.Fecha = DateTime.Now;
 
         libro.Stock -= reserva.Cantidad;
-        _reservas.Add(reserva);
+        _context.Reservas.Add(reserva);
+        await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Confirmacion), new { id = reserva.Id });
     }
 
-    // GET: /Libros/Confirmacion/1
-    public IActionResult Confirmacion(int id)
+    // CONFIRMACIÓN (consulta con datos del libro relacionado)
+    public async Task<IActionResult> Confirmacion(int id)
     {
-        var reserva = _reservas.FirstOrDefault(r => r.Id == id);
+        var reserva = await _context.Reservas.Include(r => r.Libro).FirstOrDefaultAsync(r => r.Id == id);
         if (reserva == null) return NotFound();
 
         return View(reserva);

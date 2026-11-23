@@ -6,7 +6,7 @@
 }
 
 <h1>Reservar: @libro.Titulo</h1>
-<p class="text-muted">@libro.Autor · Precio: @libro.Precio.ToString("C0") · Disponibles: @libro.Stock</p>
+<p class="text-muted">@libro.Autor?.Nombre · Precio: @libro.Precio.ToString("C0") · Disponibles: @libro.Stock</p>
 <div class="alert alert-info">🎉 Llevando 3 o más ejemplares tienes <strong>10% de descuento</strong>.</div>
 
 <div class="row">
