@@ -1,151 +1,526 @@
-html {
-    font-size: 14px;
-    position: relative;
-    min-height: 100%;
-}
 
-@media (min-width: 768px) {
-    html { font-size: 16px; }
-}
+/* =========================================
+   FERIA DEL LIBRO - PALETA ROSA
+   ========================================= */
 
-body {
-    margin-bottom: 60px;
-}
-
-/* ===== Paleta rosada ===== */
 :root {
-    --rosa-fondo: #fff5f8;
-    --rosa-claro: #ffe0ec;
-    --rosa-medio: #f8a5c2;
-    --rosa-fuerte: #e75480;
-    --rosa-oscuro: #b83266;
-    --texto: #4a2433;
+    --rosa-principal: #E8A0BF;
+    --rosa-oscuro: #AD547A;
+    --rosa-claro: #FFF5F7;
+    --rosa-suave: #F8D7E5;
+    --blanco: #FFFFFF;
+    --texto: #39323A;
+}
 
-    --bs-primary: #e75480;
-    --bs-primary-rgb: 231, 84, 128;
-    --bs-link-color: #b83266;
-    --bs-link-hover-color: #e75480;
+/* Configuración general */
+
+html {
+    font-size: 16px;
+    min-height: 100%;
+    scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--rosa-fondo);
+    margin: 0;
+    background-color: var(--rosa-claro);
     color: var(--texto);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1, h2, h3 {
+/* Barra de navegación */
+
+.navbar {
+    background-color: var(--blanco);
+    border-bottom: 2px solid var(--rosa-suave);
+    padding: 16px 0;
+}
+
+.navbar-brand {
+    color: var(--rosa-oscuro) !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: var(--texto) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--rosa-oscuro) !important;
+}
+
+/* Encabezados */
+
+h1,
+h2,
+h3 {
     color: var(--rosa-oscuro);
-}
-
-/* Navbar */
-.navbar-rosa {
-    background: linear-gradient(90deg, #f8a5c2, #e75480);
-    border-bottom: 3px solid var(--rosa-oscuro);
-}
-.navbar-rosa .navbar-brand,
-.navbar-rosa .nav-link {
-    color: #fff !important;
-    font-weight: 600;
-}
-.navbar-rosa .nav-link:hover {
-    color: var(--rosa-claro) !important;
+    font-weight: 700;
 }
 
 /* Botones */
+
 .btn-primary {
-    background-color: var(--rosa-fuerte);
-    border-color: var(--rosa-fuerte);
-    color: #fff;
+    background-color: var(--rosa-principal);
+    border-color: var(--rosa-principal);
+    color: #39232E;
+    border-radius: 25px;
+    padding: 10px 24px;
+    font-weight: 600;
 }
-.btn-primary:hover, .btn-primary:focus {
+
+.btn-primary:hover {
     background-color: var(--rosa-oscuro);
     border-color: var(--rosa-oscuro);
-    color: #fff;
+    color: var(--blanco);
 }
+
 .btn-outline-primary {
-    color: var(--rosa-fuerte);
-    border-color: var(--rosa-fuerte);
+    border-color: var(--rosa-oscuro);
+    color: var(--rosa-oscuro);
+    border-radius: 25px;
 }
+
 .btn-outline-primary:hover {
-    background-color: var(--rosa-fuerte);
-    border-color: var(--rosa-fuerte);
-    color: #fff;
-}
-.btn-success {
-    background-color: #d63384;
-    border-color: #d63384;
-}
-.btn-success:hover {
     background-color: var(--rosa-oscuro);
     border-color: var(--rosa-oscuro);
-}
-.btn-secondary {
-    background-color: #f3c6d6;
-    border-color: #f3c6d6;
-    color: var(--texto);
-}
-.btn-secondary:hover {
-    background-color: var(--rosa-medio);
-    border-color: var(--rosa-medio);
-    color: var(--texto);
+    color: var(--blanco);
 }
 
-/* Tabla */
-.table-dark {
-    --bs-table-bg: var(--rosa-fuerte);
-    --bs-table-border-color: var(--rosa-oscuro);
-    --bs-table-color: #fff;
-    color: #fff;
-}
-.table-striped > tbody > tr:nth-of-type(odd) > * {
-    --bs-table-bg-type: var(--rosa-claro);
-}
-.table-hover > tbody > tr:hover > * {
-    --bs-table-bg-state: #ffd0e1;
+/* Tarjetas */
+
+.card {
+    border: 1px solid var(--rosa-suave);
+    border-radius: 18px;
+    overflow: hidden;
+    background-color: var(--blanco);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Badges */
-.bg-secondary {
-    background-color: var(--rosa-medio) !important;
-    color: var(--texto) !important;
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(173, 84, 122, 0.12);
 }
-.bg-success {
-    background-color: #d63384 !important;
+
+.card-title {
+    color: var(--rosa-oscuro);
+    font-weight: 700;
 }
 
 /* Formularios */
-.form-control, .form-select {
-    border-color: var(--rosa-medio);
-}
-.form-control:focus, .form-select:focus {
-    border-color: var(--rosa-medio);
-    box-shadow: 0 0 0 0.25rem rgba(231, 84, 128, 0.25);
+
+.form-control,
+.form-select {
+    border: 1px solid #E8C5D3;
+    border-radius: 10px;
+    padding: 11px 14px;
 }
 
-/* Alertas y tarjetas */
-.alert-success {
-    background-color: var(--rosa-claro);
-    border-color: var(--rosa-medio);
-    color: var(--rosa-oscuro);
-}
-.alert-info {
-    background-color: #fde4ef;
-    border-color: var(--rosa-medio);
-    color: var(--rosa-oscuro);
-}
-.card.border-success {
-    border-color: var(--rosa-fuerte) !important;
-}
-.card-header.bg-success {
-    background-color: var(--rosa-fuerte) !important;
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--rosa-principal);
+    box-shadow: 0 0 0 0.2rem rgba(232, 160, 191, 0.25);
 }
 
-/* Footer */
-.footer {
-    position: absolute;
-    bottom: 0;
+/* Secciones */
+
+.seccion-rosa {
+    background-color: var(--rosa-suave);
+    border-radius: 22px;
+    padding: 40px 25px;
+}
+
+.texto-rosa {
+    color: var(--rosa-oscuro);
+}
+
+/* Pie de página */
+
+footer {
+    background-color: var(--blanco);
+    color: #6B6067;
+    border-top: 1px solid var(--rosa-suave);
+    padding: 22px 0;
+    margin-top: 50px;
+}
+
+/* Accesibilidad */
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--rosa-oscuro);
+    outline-offset: 3px;
+}
+
+/* Adaptación a celulares */
+
+@media (max-width: 576px) {
+    .seccion-rosa {
+        padding: 28px 18px;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* =========================================
+   BARRA DE NAVEGACIÓN DE LA FERIA
+   ========================================= */
+
+.navbar-feria {
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #F8D7E5;
+    padding: 16px 0;
+    margin-bottom: 0;
+}
+
+.navbar-feria .navbar-brand {
+    color: #AD547A !important;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.marca-icono {
+    color: #E8A0BF;
+    font-size: 1.8rem;
+    margin-right: 5px;
+}
+
+.navbar-feria .nav-link {
+    color: #39323A !important;
+    padding: 10px 16px !important;
+    transition: color 0.3s ease;
+}
+
+.navbar-feria .nav-link:hover {
+    color: #AD547A !important;
+}
+
+/* Botón del menú en celulares */
+
+.navbar-feria .navbar-toggler {
+    border-color: #E8A0BF;
+}
+
+.navbar-feria .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(232, 160, 191, 0.25);
+}
+
+/* =========================================
+   PIE DE PÁGINA
+   ========================================= */
+
+.footer-feria {
+    background-color: #FFFFFF;
+    color: #6B6067;
+    border-top: 2px solid #F8D7E5;
+    padding: 28px 15px;
+    margin-top: 50px;
+}
+
+.footer-feria strong {
+    color: #AD547A;
+    font-size: 1.15rem;
+}
+
+.footer-feria small {
+    display: block;
+    margin-top: 12px;
+    color: #887780;
+}
+
+
+
+/* =========================================
+   PÁGINA PRINCIPAL - FERIA DEL LIBRO
+   ========================================= */
+
+.hero-feria {
+    background: linear-gradient(135deg, #FFF5F7, #FCE4EC);
+    padding: 85px 0;
+    overflow: hidden;
+}
+
+.etiqueta-feria {
+    display: inline-block;
+    color: #AD547A;
+    background-color: #FFFFFF;
+    border: 1px solid #F8D7E5;
+    border-radius: 30px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.titulo-hero {
+    color: #39323A;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.titulo-hero span {
+    color: #C56F96;
+}
+
+.descripcion-hero {
+    color: #71616A;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    max-width: 550px;
+}
+
+.btn-feria {
+    display: inline-block;
+    background-color: #C56F96;
+    border: 2px solid #C56F96;
+    color: #FFFFFF;
+    border-radius: 30px;
+    padding: 13px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-feria:hover {
+    background-color: #AD547A;
+    border-color: #AD547A;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+.btn-feria-secundario {
+    display: inline-block;
+    background-color: #FFFFFF;
+    border: 2px solid #E8A0BF;
+    color: #AD547A;
+    border-radius: 30px;
+    padding: 13px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-feria-secundario:hover {
+    background-color: #F8D7E5;
+    color: #AD547A;
+}
+
+.detalle-hero {
+    color: #8A6D7B;
+    font-size: 0.95rem;
+}
+
+.detalle-hero span {
+    color: #C56F96;
+    font-size: 1.3rem;
+    margin-right: 7px;
+}
+
+/* Ilustración decorativa hecha con CSS */
+
+.ilustracion-libros {
+    position: relative;
+    min-height: 340px;
+    background-color: rgba(255, 255, 255, 0.65);
+    border: 1px solid #FFFFFF;
+    border-radius: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 20px;
+}
+
+.libros-apilados {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-    line-height: 60px;
-    background-color: var(--rosa-claro);
-    color: var(--rosa-oscuro);
-    border-top: 2px solid var(--rosa-medio);
+    max-width: 280px;
 }
+
+.libro {
+    width: 100%;
+    min-height: 65px;
+    border-radius: 8px 14px 14px 8px;
+    border-left: 8px solid rgba(110, 45, 77, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #74435B;
+    box-shadow: 0 5px 10px rgba(100, 50, 75, 0.08);
+}
+
+.libro span {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.libro small {
+    font-size: 0.8rem;
+}
+
+.libro-uno {
+    background-color: #F2BDD2;
+    transform: rotate(-3deg);
+}
+
+.libro-dos {
+    background-color: #E8A0BF;
+    transform: rotate(2deg);
+}
+
+.libro-tres {
+    background-color: #F8D7E5;
+    transform: rotate(-1deg);
+}
+
+.decoracion {
+    position: absolute;
+    color: #C56F96;
+    font-size: 2.5rem;
+}
+
+.decoracion-uno {
+    top: 18px;
+    right: 25px;
+}
+
+.decoracion-dos {
+    bottom: 30px;
+    left: 25px;
+}
+
+.frase-ilustracion {
+    color: #AD547A;
+    font-style: italic;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+/* Bienvenida */
+
+.seccion-bienvenida {
+    padding-top: 85px;
+    padding-bottom: 55px;
+}
+
+.bienvenida-contenido {
+    max-width: 760px;
+}
+
+.subtitulo-seccion {
+    color: #AD547A;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.seccion-bienvenida h2,
+.seccion-categorias h2 {
+    color: #493641;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.seccion-bienvenida p,
+.texto-descripcion {
+    color: #786873;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Categorías */
+
+.seccion-categorias {
+    padding-top: 35px;
+    padding-bottom: 80px;
+}
+
+.tarjeta-categoria {
+    background-color: #FFFFFF;
+    border: 1px solid #F4D5E2;
+    border-radius: 22px;
+    padding: 32px 25px;
+    height: 100%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tarjeta-categoria:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(173, 84, 122, 0.10);
+}
+
+.icono-categoria {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    background-color: #FCE4EC;
+    color: #AD547A;
+    border-radius: 17px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.tarjeta-categoria h3 {
+    font-size: 1.3rem;
+    color: #AD547A;
+}
+
+.tarjeta-categoria p {
+    color: #786873;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+/* Invitación */
+
+.invitacion-feria {
+    background-color: #F8D7E5;
+    border: 1px solid #F2C4D6;
+    border-radius: 28px;
+    padding: 50px 20px;
+    margin-bottom: 20px;
+}
+
+.invitacion-feria h2 {
+    color: #874361;
+    font-weight: 750;
+}
+
+.invitacion-feria p {
+    color: #745466;
+    margin: 15px 0 25px;
+}
+
+/* Ajustes para celulares */
+
+@media (max-width: 767px) {
+    .hero-feria {
+        padding: 55px 0;
+    }
+
+    .titulo-hero {
+        letter-spacing: -0.8px;
+    }
+
+    .ilustracion-libros {
+        min-height: 300px;
+    }
+
+    .seccion-bienvenida {
+        padding-top: 60px;
+    }
+}
+
+
+
